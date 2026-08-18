@@ -1,6 +1,7 @@
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/modifiers.h>
 #include <dt-bindings/zmk/pointing.h>
 #include <input/processors.dtsi>
 
@@ -65,7 +66,7 @@
             display-name = "Nav/Mouse";
             bindings = <
 &trans  &trans    &trans    &trans    &trans    &trans    &trans  &trans      &trans    &trans    &trans    &trans
-&trans  &trans    &trans    &trans    &trans    &trans    &trans  &kp DEL     &kp HOME  &kp PG_UP  &kp PG_DN  &kp END
+&kp LC(UP_ARROW)  &kp LC(LEFT_ARROW)  &kp LC(RIGHT_ARROW)  &kp LC(DOWN_ARROW)  &trans    &trans    &trans  &kp DEL     &kp HOME  &kp PG_UP  &kp PG_DN  &kp END
 &trans  &mkp MB1  &mkp MB2  &mkp MB3  &trans    &trans    &trans  &kp LEFT_ARROW  &kp DOWN_ARROW  &kp UP_ARROW  &kp RIGHT_ARROW  &trans
 &trans  &trans    &trans    &trans    &trans    &trans    &trans  &trans      &trans    &trans    &trans    &trans
                                                 &trans  &trans  &trans    &trans  &trans
