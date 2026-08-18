@@ -4,7 +4,8 @@ ZMK user-config repo for a BastardKB Charybdis 4x6 split (nice!nano v2 on both h
 
 ## Build / flash
 
-- There is **no local build**. Push to GitHub; `.github/workflows/build.yml` calls ZMK's reusable workflow (`zmkfirmware/zmk/.github/workflows/build-user-config.yml@main`), which builds the matrix from `build.yaml` (nice_nano_v2 + charybdis_left / charybdis_right / settings_reset) and uploads `firmware/*.uf2` artifacts.
+- There is **no local build**. Push to GitHub; `.github/workflows/build.yml` calls ZMK's reusable workflow pinned to `v0.3.0` (must match the `west.yml` ZMK revision), which builds the matrix from `build.yaml` (nice_nano_v2 + charybdis_left / charybdis_right / settings_reset) and uploads `firmware/*.uf2` artifacts.
+- **Gotcha**: do not point the workflow back at `@main`. The `main` workflow requires the newer `//zmk` board-variant naming (e.g. `nice_nano//zmk`, from the Zephyr 4.1 migration) and fails against v0.3.0 boards with `KeyError: 'qualifiers'`. Firmware revision, module branch, and workflow ref must move together when upgrading.
 - The repo must stay **public** for the reusable workflow call to work from this account.
 - Flash: double-tap reset on the nice!nano to enter UF2 bootloader, copy the matching `.uf2` onto the drive.
 - If halves misbehave/pairing breaks: flash `settings_reset` to both halves, then re-flash left/right and re-pair.
