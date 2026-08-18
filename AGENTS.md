@@ -17,7 +17,7 @@ The owner's primary workflow is [ZMK Studio](https://zmk.studio/) — live keyma
 - `build.yaml` builds the right (central) half with `snippet: studio-rpc-usb-uart` and `cmake-args: -DCONFIG_ZMK_STUDIO=y`. Studio only makes sense on the central; do not add it to the left/settings_reset builds.
 - Studio support required converting the shield to a **physical layout**: `charybdis.dtsi` has a `zmk,physical-layout` chosen node (NOT `zmk,matrix-transform`) and a `default_layout` node whose `keys` array (56 entries) must stay **in the same order as the matrix transform `map`**. If you change one, change the other in lockstep.
 - The `keys` x/y coordinates are centi-keyunits derived from `config/charybdis.json` (gap between halves at x=6).
-- `&studio_unlock` is bound in layer 1 (row 3, col 2 area) — Studio is locked until that key is held/pressed.
+- `CONFIG_ZMK_STUDIO_LOCKING=n` (in `charybdis_right.conf`) disables the Studio lock screen entirely — the owner could not get the `&studio_unlock` key (layer 1 + A) to register over the split link, so Studio now opens unlocked. The keymap still carries the (inert) `&studio_unlock` binding.
 - Two `status = "reserved"` empty layers exist so new layers can be created purely in Studio.
 - **Gotcha**: once the owner saves keymap changes from Studio, subsequent edits to `charybdis.keymap` are ignored by the firmware until the owner runs "Restore Stock Settings" in the Studio UI. Treat `.keymap` as the stock baseline, not necessarily the live keymap.
 - Battery reporting (`CONFIG_ZMK_BATTERY_REPORTING=y`) is enabled; macOS shows per-half battery in Bluetooth settings, Studio shows it for the connected half.
