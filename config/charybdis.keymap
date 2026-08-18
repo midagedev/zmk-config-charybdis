@@ -12,7 +12,7 @@
 
 &trackball_listener {
     scroller {
-        layers = <1>;
+        layers = <1 2>;
         input-processors = <&zip_xy_to_scroll_mapper>;
     };
 };
