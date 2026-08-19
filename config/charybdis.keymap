@@ -15,6 +15,30 @@
 // hold only resolves when an opposite-hand key is involved, and is
 // suppressed entirely while typing at speed, so timing matters much less.
 / {
+    macros {
+        // Layer-hold sentinels for the host-side overlay app: while the layer
+        // key is held, the firmware also holds F13/F14 (no default action on
+        // macOS) so charybdis-overlay can show the active layer in real time.
+        l1_signal: l1_signal {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&macro_press &mo 1 &kp F13>
+                , <&macro_pause_for_release>
+                , <&macro_release &mo 1 &kp F13>
+                ;
+        };
+        l2_signal: l2_signal {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&macro_press &mo 2 &kp F14>
+                , <&macro_pause_for_release>
+                , <&macro_release &mo 2 &kp F14>
+                ;
+        };
+    };
+
     behaviors {
         hml: home_row_mod_left {
             compatible = "zmk,behavior-hold-tap";
@@ -41,6 +65,25 @@
             // left-hand positions (incl. left thumb cluster)
             hold-trigger-key-positions =
                 <0 1 2 3 4 5 12 13 14 15 16 17 24 25 26 27 28 29 36 37 38 39 40 41 48 49 53 54>;
+        };
+
+        // Layer keys with the same feel as &lt, but the hold action also
+        // emits the F13/F14 sentinel (see macros above).
+        l1lt: l1lt {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <0>;
+            flavor = "balanced";
+            tapping-term-ms = <200>;
+            quick-tap-ms = <150>;
+            bindings = <&l1_signal>, <&kp SPACE>;
+        };
+        l2lt: l2lt {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <0>;
+            flavor = "balanced";
+            tapping-term-ms = <200>;
+            quick-tap-ms = <150>;
+            bindings = <&l2_signal>, <&kp ENTER>;
         };
     };
 };
@@ -73,7 +116,7 @@
 &kp TAB       &kp Q   &kp W   &kp E        &kp R             &kp T           &kp Y      &kp U      &kp I      &kp O    &kp P      &kp BACKSLASH
 &kp CAPSLOCK  &hml LALT A   &hml LCTRL S   &hml LSHIFT D   &hml LGUI F       &kp G           &kp H      &hmr RGUI J      &hmr RSHIFT K     &hmr RCTRL L    &hmr RALT SEMI  &kp APOS
 &kp LSHIFT    &kp Z   &kp X   &kp C        &kp V             &kp B           &kp N      &kp M      &kp COMMA  &kp DOT  &kp SLASH  &kp EQUAL
-                              &lt 1 SPACE  &kp SPACE         &kp LCTRL       &kp MINUS  &lt 2 ENTER
+                              &l1lt  &kp SPACE         &kp LCTRL       &kp MINUS  &l2lt
                                            &kp LEFT_COMMAND  &kp LEFT_ALT    &mkp MB1
             >;
         };
