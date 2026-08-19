@@ -68,32 +68,23 @@
         };
 
         // Layer keys with the same feel as &lt, but the hold action also
-        // emits the F13/F14 sentinel (see macros above).
+        // emits the F13/F14 sentinel (see macros above). The tap keycode is
+        // passed at the usage site (e.g. &l1lt SPACE).
         l1lt: l1lt {
             compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <0>;
+            #binding-cells = <1>;
             flavor = "balanced";
             tapping-term-ms = <200>;
             quick-tap-ms = <150>;
-            bindings = <&l1_signal &kp SPACE>;
+            bindings = <&l1_signal>, <&kp>;
         };
         l2lt: l2lt {
             compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <0>;
+            #binding-cells = <1>;
             flavor = "balanced";
             tapping-term-ms = <200>;
             quick-tap-ms = <150>;
-            bindings = <&l2_signal &kp ENTER>;
-        };
-        // Left-thumb nav entry: same layer as the right thumb, so keyboard
-        // navigation can be held left while the right hand uses HJKL arrows.
-        l2sp: l2sp {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <0>;
-            flavor = "balanced";
-            tapping-term-ms = <200>;
-            quick-tap-ms = <150>;
-            bindings = <&l2_signal &kp SPACE>;
+            bindings = <&l2_signal>, <&kp>;
         };
     };
 };
@@ -126,7 +117,7 @@
 &kp TAB       &kp Q   &kp W   &kp E        &kp R             &kp T           &kp Y      &kp U      &kp I      &kp O    &kp P      &kp BACKSLASH
 &kp CAPSLOCK  &hml LALT A   &hml LCTRL S   &hml LSHIFT D   &hml LGUI F       &kp G           &kp H      &hmr RGUI J      &hmr RSHIFT K     &hmr RCTRL L    &hmr RALT SEMI  &kp APOS
 &kp LSHIFT    &kp Z   &kp X   &kp C        &kp V             &kp B           &kp N      &kp M      &kp COMMA  &kp DOT  &kp SLASH  &kp EQUAL
-                              &l1lt  &l2lt             &kp LCTRL       &kp MINUS  &l2lt
+                              &l1lt SPACE  &l2lt SPACE       &kp LCTRL       &kp MINUS  &l2lt ENTER
                                            &kp LEFT_COMMAND  &kp LEFT_ALT    &mkp MB1
             >;
         };
