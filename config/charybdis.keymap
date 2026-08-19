@@ -75,7 +75,7 @@
             flavor = "balanced";
             tapping-term-ms = <200>;
             quick-tap-ms = <150>;
-            bindings = <&l1_signal>, <&kp SPACE>;
+            bindings = <&l1_signal &kp SPACE>;
         };
         l2lt: l2lt {
             compatible = "zmk,behavior-hold-tap";
@@ -83,7 +83,17 @@
             flavor = "balanced";
             tapping-term-ms = <200>;
             quick-tap-ms = <150>;
-            bindings = <&l2_signal>, <&kp ENTER>;
+            bindings = <&l2_signal &kp ENTER>;
+        };
+        // Left-thumb nav entry: same layer as the right thumb, so keyboard
+        // navigation can be held left while the right hand uses HJKL arrows.
+        l2sp: l2sp {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <0>;
+            flavor = "balanced";
+            tapping-term-ms = <200>;
+            quick-tap-ms = <150>;
+            bindings = <&l2_signal &kp SPACE>;
         };
     };
 };
@@ -116,7 +126,7 @@
 &kp TAB       &kp Q   &kp W   &kp E        &kp R             &kp T           &kp Y      &kp U      &kp I      &kp O    &kp P      &kp BACKSLASH
 &kp CAPSLOCK  &hml LALT A   &hml LCTRL S   &hml LSHIFT D   &hml LGUI F       &kp G           &kp H      &hmr RGUI J      &hmr RSHIFT K     &hmr RCTRL L    &hmr RALT SEMI  &kp APOS
 &kp LSHIFT    &kp Z   &kp X   &kp C        &kp V             &kp B           &kp N      &kp M      &kp COMMA  &kp DOT  &kp SLASH  &kp EQUAL
-                              &l1lt  &kp SPACE         &kp LCTRL       &kp MINUS  &l2lt
+                              &l1lt  &l2lt             &kp LCTRL       &kp MINUS  &l2lt
                                            &kp LEFT_COMMAND  &kp LEFT_ALT    &mkp MB1
             >;
         };
