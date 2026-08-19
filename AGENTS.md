@@ -51,10 +51,15 @@ The owner's primary workflow is [ZMK Studio](https://zmk.studio/) — live keyma
 
 ## Keymap conventions
 
-- Layer 0 = Base; layer 1 = nav/function layer (`&lt 1 SPACE` home-thumb hold; `&studio_unlock`, `&bt BT_CLR`, arrows, F-row).
-- ESC via combo (positions 17 18), not a dedicated key.
-- `&mkp MB1` on a thumb key is the mouse left-click.
-- The owner changes the keymap through ZMK Studio at runtime; file edits to `.keymap` are only the stock baseline. Expect whole-file rewrites when the keymap editor is used; review diffs structurally (per-key positions), not by line.
+Four layers (all defined in `charybdis.keymap`; keep `charybdis.json`-derived position order in mind):
+
+- **Layer 0 Base**: QWERTY + number row, home-row mods on both hands (`&hml`/`&hmr`, positional "timeless" config — hold only triggers on opposite-hand keys, `require-prior-idle-ms = 150`). Left thumbs: `&l1lt`(tap=Space, hold=Sym) / `&l2lt`(tap=Space, hold=Nav) / plain Ctrl / `-` ; right thumb `&l2lt ENTER`. Lower-left thumb row: BSPC / `&snipe_alt_lt`(tap=Alt, hold=Snipe) / `&mkp MB1`.
+- **Layer 1 Sym/Fn**: F1–F11 on number row (kept matching the base layout), brackets/parens/braces on right hand (`[ ] ( )` U I O P, `{ }` J K), brightness down/up on `;`/`'`, `&bootloader` (right half UF2) on `\`, `&sys_reset` on right pinky. Left bottom row: Z=`&bootloader` (LEFT half UF2 — reset behaviors run on the half that physically presses the key), X=`&lock_screen` (Ctrl+Cmd+Q), C=`&shot_clip` (Ctrl+Shift+Cmd+4 to clipboard).
+- **Layer 2 Nav/Mouse**: macOS gestures (Ctrl+arrows) on Q W E Y; DEL/HOME/PGUP/PGDN/END on U I O P [; mouse buttons MB1/MB2/MB3 on S D F; BT clear/prev on G/H; HJKL arrows; bottom row volume mute/down/up (Z X C), brightness down/up + browser back/forward on I O , .
+- **Layer 3 Snipe**: all-transparent; `&trackball_listener` `sniper` child applies `&zip_xy_scaler 1 4` while active.
+- Ball scrolling via `scroller` child on layers 1+2. ESC via combo (positions 17 18). CapsLock stays as macOS 한/영 toggle by owner request — do not repurpose it.
+- **Layer-hold sentinels**: `l1_signal`/`l2_signal`/`snipe_signal` macros hold F13/F14/F15 while the layer is held so the companion macOS overlay app (`~/repo-mid/charybdis-overlay`) can display the active layer. Hold-tap `#binding-cells` is fixed at 2 by the binding schema; the signal macros are parameterless so usages pass a dummy 0 first (`&l1lt 0 SPACE`).
+- The owner changes the keymap through ZMK Studio at runtime; file edits to `.keymap` are only the stock baseline. Expect whole-file rewrites when the keymap editor is used; review diffs structurally (per-key positions), not by line. The overlay app mirrors this keymap by hand — update `main.swift` there when changing bindings.
 
 ## Tuning knobs
 
