@@ -17,33 +17,34 @@
 / {
     macros {
         // Layer-hold sentinels for the host-side overlay app: while the layer
-        // key is held, the firmware also holds F13/F14 (no default action on
-        // macOS) so charybdis-overlay can show the active layer in real time.
+        // key is held, the firmware also holds F16/F17/F18 (no default action
+        // on macOS — F13/F14 were scrapped because macOS maps F14 to display
+        // brightness down) so charybdis-overlay can show the active layer in real time.
         l1_signal: l1_signal {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings
-                = <&macro_press &mo 1 &kp F13>
+                = <&macro_press &mo 1 &kp F16>
                 , <&macro_pause_for_release>
-                , <&macro_release &mo 1 &kp F13>
+                , <&macro_release &mo 1 &kp F16>
                 ;
         };
         l2_signal: l2_signal {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings
-                = <&macro_press &mo 2 &kp F14>
+                = <&macro_press &mo 2 &kp F17>
                 , <&macro_pause_for_release>
-                , <&macro_release &mo 2 &kp F14>
+                , <&macro_release &mo 2 &kp F17>
                 ;
         };
         snipe_signal: snipe_signal {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings
-                = <&macro_press &mo 3 &kp F15>
+                = <&macro_press &mo 3 &kp F18>
                 , <&macro_pause_for_release>
-                , <&macro_release &mo 3 &kp F15>
+                , <&macro_release &mo 3 &kp F18>
                 ;
         };
 
@@ -92,7 +93,7 @@
         };
 
         // Layer keys with the same feel as &lt, but the hold action also
-        // emits the F13/F14 sentinel (see macros above). #binding-cells is
+        // emits the F16/F17/F18 sentinel (see macros above). #binding-cells is
         // fixed at 2 by the hold-tap binding; the first param is a dummy
         // consumed by the parameterless signal macro, the second is the
         // tap keycode (e.g. &l1lt 0 SPACE).
