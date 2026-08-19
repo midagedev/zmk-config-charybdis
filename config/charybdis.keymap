@@ -88,6 +88,15 @@
             quick-tap-ms = <150>;
             bindings = <&l2_signal>, <&kp>;
         };
+        // Left thumb snipe entry: tap = Ctrl, hold = slow-ball layer.
+        snipe_lt: snipe_lt {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            tapping-term-ms = <200>;
+            quick-tap-ms = <150>;
+            bindings = <&mo>, <&kp>;
+        };
     };
 };
 
@@ -95,6 +104,11 @@
     scroller {
         layers = <1 2>;
         input-processors = <&zip_xy_to_scroll_mapper>;
+    };
+
+    sniper {
+        layers = <3>;
+        input-processors = <&zip_xy_scaler 1 4>;
     };
 };
 
@@ -119,7 +133,7 @@
 &kp TAB       &kp Q   &kp W   &kp E        &kp R             &kp T           &kp Y      &kp U      &kp I      &kp O    &kp P      &kp BACKSLASH
 &kp CAPSLOCK  &hml LALT A   &hml LCTRL S   &hml LSHIFT D   &hml LGUI F       &kp G           &kp H      &hmr RGUI J      &hmr RSHIFT K     &hmr RCTRL L    &hmr RALT SEMI  &kp APOS
 &kp LSHIFT    &kp Z   &kp X   &kp C        &kp V             &kp B           &kp N      &kp M      &kp COMMA  &kp DOT  &kp SLASH  &kp EQUAL
-                              &l1lt 0 SPACE  &l2lt 0 SPACE   &kp LCTRL       &kp MINUS  &l2lt 0 ENTER
+                              &l1lt 0 SPACE  &l2lt 0 SPACE   &snipe_lt 0 LCTRL  &kp MINUS  &l2lt 0 ENTER
                                            &kp LEFT_COMMAND  &kp LEFT_ALT    &mkp MB1
             >;
         };
@@ -148,8 +162,17 @@
             >;
         };
 
-        extra_layer_3 {
-            status = "reserved";
+        // Snipe layer: slows the ball to a quarter speed for precise pointing.
+        layer_3 {
+            display-name = "Snipe";
+            bindings = <
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
+                                                &trans  &trans  &trans    &trans  &trans
+                                                        &trans  &trans    &trans
+            >;
         };
     };
 };
